@@ -2,22 +2,16 @@ CREATE DATABASE bd_maneasy;
 
 USE bd_maneasy;
 
-CREATE TABLE tb_tipos_usuarios(
-	id_tipos_usuario BINARY(16) NOT NULL PRIMARY KEY,
-    tipo VARCHAR(255) NOT NULL,
-    descricao VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE tb_demandas(
-	id_demanda BINARY(16) NOT NULL PRIMARY KEY,
-	nome_demanda VARCHAR(255) NOT NULL,
+CREATE TABLE tb_servicos(
+	id_servicos BINARY(16) NOT NULL PRIMARY KEY,
+	nome_servicos VARCHAR(255) NOT NULL,
     data_criacao DATE NOT NULL,
     data_inicio DATE NOT NULL,
     data_termino DATE NOT NULL,
-    descricao_demanda VARCHAR(255) NOT NULL,
+    descricao_servicos VARCHAR(255) NOT NULL,
 	anexo VARCHAR(2048) NOT NULL,
-	status_demanda ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL,
-	tipo_demanda VARCHAR(255)
+    tipo_servicos BIT NOT NULL,
+	status_demanda ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL    
 );
 
 CREATE TABLE tb_chamados(
@@ -27,22 +21,9 @@ CREATE TABLE tb_chamados(
     data_criacao DATE NOT NULL,
     data_inicio DATE NOT NULL,
     data_termino DATE NOT NULL,
-    cricao_chamado VARCHAR(255) NOT NULL,
+    criacao_chamado VARCHAR(255) NOT NULL,
     anexo VARCHAR(2048) NOT NULL,
-	status_chamado ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL,
-	tipo_chamado VARCHAR(255) /*PERGUNTAR*/
-);
-
-CREATE TABLE tb_projetos(
-	id_projeto BINARY(16) NOT NULL PRIMARY KEY,
-    nome_projeto VARCHAR(255) NOT NULL,
-    data_criacao DATE NOT NULL,
-    data_inicio DATE NOT NULL,
-    data_termino DATE NOT NULL,
-    objetivo_projeto VARCHAR(255) NOT NULL,
-    orcamento_projeto DECIMAL(12,2) NOT NULL,
-    status_projeto ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL,
-    tipo_projeto VARCHAR(255) /*PERGUNTAR*/
+	status_chamado ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL
 );
 
 CREATE TABLE tb_hard_skills(
@@ -56,8 +37,7 @@ CREATE TABLE tb_usuarios(
     nome_usuario VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    id_tipos_usuario BINARY(16) NOT NULL,
-    FOREIGN KEY (id_tipos_usuario) REFERENCES tb_tipos_usuarios(id_tipos_usuario)
+    tipos_usuario ENUM ('Administrador', 'Gestor', 'Profissional', 'Outro') NOT NULL
 );
 
 CREATE TABLE tb_profisionais(
@@ -80,12 +60,10 @@ CREATE TABLE tb_profissionais_hardskills(
 
 CREATE TABLE tb_squads(
 	id_squad BINARY(16) NOT NULL PRIMARY KEY,
-	id_projeto BINARY(16) NOT NULL,
-	id_chamado BINARY(16) NOT NULL,
-	id_demanda BINARY(16) NOT NULL,
-	FOREIGN KEY (id_projeto) REFERENCES tb_projetos(id_projeto),
+	id_chamado BINARY(16),
+	id_servicos BINARY(16),
 	FOREIGN KEY (id_chamado) REFERENCES tb_chamados(id_chamado),
-	FOREIGN KEY (id_demanda) REFERENCES tb_demandas(id_demanda)
+	FOREIGN KEY (id_demanda) REFERENCES tb_servicos(id_demanda)
 );
 
 CREATE TABLE tb_profissionais_squads(
@@ -94,11 +72,3 @@ CREATE TABLE tb_profissionais_squads(
     FOREIGN KEY (id_profissional) REFERENCES tb_profisionais(id_profissional),
 	FOREIGN KEY (id_squad) REFERENCES tb_squads(id_squad)
 );
-
-
-
-
-
-
-
-
