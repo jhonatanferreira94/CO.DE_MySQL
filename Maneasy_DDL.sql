@@ -11,7 +11,8 @@ CREATE TABLE tb_servicos(
     descricao_servicos VARCHAR(255) NOT NULL,
 	anexo VARCHAR(2048) NOT NULL,
     tipo_servicos BIT NOT NULL,
-	status_demanda ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL    
+    consultoria VARCHAR(2048) NOT NULL,
+	status_servicos ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL
 );
 
 CREATE TABLE tb_chamados(
@@ -21,7 +22,7 @@ CREATE TABLE tb_chamados(
     data_criacao DATE NOT NULL,
     data_inicio DATE NOT NULL,
     data_termino DATE NOT NULL,
-    criacao_chamado VARCHAR(255) NOT NULL,
+    descricao_chamado VARCHAR(255) NOT NULL,
     anexo VARCHAR(2048) NOT NULL,
 	status_chamado ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL
 );
