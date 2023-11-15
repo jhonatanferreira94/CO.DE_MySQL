@@ -38,7 +38,7 @@ CREATE TABLE tb_usuarios(
     nome_usuario VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    tipos_usuario ENUM ('Administrador', 'Gestor', 'Profissional', 'Outro') NOT NULL
+    tipos_usuario ENUM ('Administrador', 'Gestor', 'Profissional', 'Comum') NOT NULL
 );
 
 CREATE TABLE tb_profisionais(
@@ -64,7 +64,7 @@ CREATE TABLE tb_squads(
 	id_chamado BINARY(16),
 	id_servicos BINARY(16),
 	FOREIGN KEY (id_chamado) REFERENCES tb_chamados(id_chamado),
-	FOREIGN KEY (id_demanda) REFERENCES tb_servicos(id_demanda)
+	FOREIGN KEY (id_servicos) REFERENCES tb_servicos(id_servicos)
 );
 
 CREATE TABLE tb_profissionais_squads(
