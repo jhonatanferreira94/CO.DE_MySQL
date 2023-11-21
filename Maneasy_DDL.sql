@@ -49,7 +49,7 @@ CREATE TABLE tb_profisionais(
     jornada_trabalho_profissional SMALLINT,
     hora_extra SMALLINT,
     id_usuario BINARY(16) NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES tb_usuarios(id_usuario)
+    FOREIGN KEY (id_profissional) REFERENCES tb_usuarios(id_usuario)
 );
 
 CREATE TABLE tb_profissionais_hardskills(
