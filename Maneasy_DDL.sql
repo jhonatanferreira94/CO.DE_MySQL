@@ -9,9 +9,13 @@ CREATE TABLE tb_servicos(
     data_inicio DATE NOT NULL,
     data_termino DATE NOT NULL,
     descricao_servicos VARCHAR(255) NOT NULL,
-	anexo VARCHAR(2048) NOT NULL,
+    
+    orcamento DECIMAL (20, 2),
+    tempo_servico INT NOT NULL,
+    
+	anexo VARCHAR(2048),
     tipo_servicos BIT NOT NULL,
-    consultoria VARCHAR(2048) NOT NULL,
+    consultoria VARCHAR(2048),
 	status_servicos ENUM('Aberto', 'Em andamento', 'Finalizado') NOT NULL
 );
 
@@ -19,6 +23,10 @@ CREATE TABLE tb_chamados(
 	id_chamado BINARY(16) NOT NULL PRIMARY KEY,
     setor VARCHAR(255) NOT NULL,
     nome_solicitante VARCHAR(255) NOT NULL,
+    
+	chapa_usuario INT NOT NULL UNIQUE,
+    nome_atendente VARCHAR(255) NOT NULL,
+    
     data_criacao DATE NOT NULL,
     data_inicio DATE NOT NULL,
     data_termino DATE NOT NULL,
@@ -49,10 +57,11 @@ CREATE TABLE tb_profisionais(
     jornada_trabalho_profissional SMALLINT,
     hora_extra SMALLINT,
     id_usuario BINARY(16) NOT NULL,
-    FOREIGN KEY (id_profissional) REFERENCES tb_usuarios(id_usuario)
+    FOREIGN KEY (id_usuario) REFERENCES tb_usuarios(id_usuario)
 );
 
 CREATE TABLE tb_profissionais_hardskills(
+	id_profissionais_hardskills BINARY(16) NOT NULL PRIMARY KEY,
 	id_profissional BINARY(16) NOT NULL,
 	id_hard_skill BINARY(16) NOT NULL,
     FOREIGN KEY (id_profissional) REFERENCES tb_profisionais(id_profissional),
